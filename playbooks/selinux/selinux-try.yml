@@ -1,0 +1,10 @@
+---
+- name: Ansible Playbook
+  hosts: cent
+  become: yes
+  become_user: root
+  tasks:
+    - name: Enable SELinux
+      selinux:
+        policy: targeted
+        state: enforcing
