@@ -1,6 +1,8 @@
 ---
 - name: Ansible Playbook for disabling SELinux and Reboot .
   hosts: cent
+  become: yes
+  become_user: root
   handlers:
           - name: reboot server
             command: systemctl reboot
