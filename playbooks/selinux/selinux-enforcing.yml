@@ -1,6 +1,8 @@
 ---
 - name: Ansible Playbook
   hosts: cent
+  become: yes
+  become_user: root
   handlers:
     - name: reboot host
       command: systemctl reboot
