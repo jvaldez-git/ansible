@@ -1,0 +1,22 @@
+---
+- name: Ansible Playbook
+  hosts: cent
+  handlers:
+    - name: reboot host
+      command: systemctl reboot
+  tasks:
+    - name: Disable SELinux
+      selinux:
+        state: enforcing
+        policy: targeted
+      register: selinuxdisabled
+    - name: Print the changes to a Config file
+      command: grep SELINUX /etc/sysconfig/selinux
+      register: sevalue
+    - debug:
+        var: sevalue.stdout_lines
+    - name:  Sleep 5 seconds, then Reboot
+      shell:  "sleep 5 && reboot"
+      async: 1
+      poll: 0
+      when: selinuxdisabled is changed
